@@ -1,10 +1,11 @@
 import librosa
-import librosa.filters
+import librosa.filters as lf
 import numpy as np
 # import tensorflow as tf
 from scipy import signal
 from scipy.io import wavfile
 from hparams import hparams as hp
+
 
 def load_wav(path, sr):
     return librosa.core.load(path, sr=sr)[0]
@@ -96,8 +97,9 @@ def _linear_to_mel(spectogram):
     return np.dot(_mel_basis, spectogram)
 
 def _build_mel_basis():
+#	import librosa.filters as lf
     assert hp.fmax <= hp.sample_rate // 2
-    return librosa.filters.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels,
+    return lf.mel(hp.sample_rate, hp.n_fft, n_mels=hp.num_mels,
                                fmin=hp.fmin, fmax=hp.fmax)
 
 def _amp_to_db(x):
