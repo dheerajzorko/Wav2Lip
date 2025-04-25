@@ -222,10 +222,10 @@ def main():
 		args.audio = 'temp/temp.wav'
 
 	wav = audio.load_wav(args.audio, 16000)
-	mel = audio.melspectrogram(wav)
-	print(mel.shape)
+	mel_spec = audio.melspectrogram(wav)
+	print(mel_spec.shape)
 
-	if np.isnan(mel.reshape(-1)).sum() > 0:
+	if np.isnan(mel_spec.reshape(-1)).sum() > 0:
 		raise ValueError('Mel contains nan! Using a TTS voice? Add a small epsilon noise to the wav file and try again')
 
 	mel_chunks = []
